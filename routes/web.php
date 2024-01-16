@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\PayrollController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +21,17 @@ Route::view('/', 'welcome');
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::resource('employers', EmployerController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::resource('employees', EmployeeController::class)
+    ->middleware(['auth', 'verified']);
+
+Route::get('payroll', [PayrollController::class, 'create']);
+
+Route::post('payroll', [PayrollController::class, 'store']);
+
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
