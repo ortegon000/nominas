@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class PayrollFactory extends Factory
      */
     public function definition(): array
     {
+        $startDate = now()->subMonths(rand(1,6))->startOfMonth()->addWeeks(rand(0,3));
+        $endDate   = $startDate->copy()->addWeek();
+
         return [
-            //
+            'start_period' => $startDate,
+            'end_period' => $endDate,
         ];
     }
 }

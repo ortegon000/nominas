@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Employer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +17,6 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'employer_id' => Employer::inRandomOrder()->first()->id,
             'name' => $this->faker->name,
             'nss' => $this->faker->uuid,
             'start_date' => $this->faker->date('Y-m-d', now()->subDay()->toDateString()),
