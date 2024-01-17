@@ -19,6 +19,7 @@ return new class extends Migration
 
             $table->integer('worked_days');
             $table->float('daily_salary');
+            $table->float('integrated_salary');
             $table->float('total_before_other_income');
             $table->float('other_income');
             $table->float('total_income');

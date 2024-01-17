@@ -18,10 +18,15 @@ class EmployeeFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'rfc' => $this->faker->uuid,
             'nss' => $this->faker->uuid,
             'start_date' => $this->faker->date('Y-m-d', now()->subDay()->toDateString()),
-            'daily_salary' => $this->faker->randomFloat(2, 150, 1000),
-            'payment_type' => $this->faker->randomElement(['weekly', 'biweekly'])
+            'end_date' => null,
+
+            'daily_salary' => $ds = $this->faker->randomFloat(2, 150, 1000),
+            'integrated_salary' => $ds * 1.0493,
+
+            'payment_type' => 'biweekly',
         ];
     }
 }

@@ -17,13 +17,13 @@ return new class extends Migration
             $table->foreignId('employer_id')->constrained('employers');
 
             $table->string('name');
+            $table->string('rfc');
             $table->string('nss');
             $table->date('start_date');
             $table->date('end_date')->nullable();
 
             $table->float('daily_salary');
-            $table->float('other_income')->nullable();
-            $table->float('other_outcome')->nullable();
+            $table->float('integrated_salary');
 
             $table->enum('payment_type', [
                 'weekly',
