@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_outcomes', function (Blueprint $table) {
+        Schema::create('employee_income_templates', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('employee_payroll_id')->constrained('employee_payrolls');
-            $table->foreignId('employee_id')->constrained('employees');
-
             $table->string('name');
-            $table->float('amount');
+            $table->boolean('to_transfer')->default(false);
 
             $table->timestamps();
         });
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employee_outcomes');
+        Schema::dropIfExists('employee_income_templates');
     }
 };

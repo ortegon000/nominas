@@ -18,19 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::resource('employers', EmployerController::class)
-    ->middleware(['auth', 'verified']);
+    Route::resource('employers', EmployerController::class);
 
-Route::resource('employees', EmployeeController::class)
-    ->middleware(['auth', 'verified']);
+    Route::resource('employees', EmployeeController::class);
 
-Route::get('payroll', [PayrollController::class, 'create']);
-
-Route::post('payroll', [PayrollController::class, 'store']);
+    Route::resource('payroll', PayrollController::class);
+});
 
 
 Route::view('profile', 'profile')

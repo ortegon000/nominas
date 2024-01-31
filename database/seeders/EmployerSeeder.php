@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Employee;
+use App\Models\EmployeeIncomes;
+use App\Models\EmployeeIncomeTemplate;
+use App\Models\EmployeeOutcomes;
+use App\Models\EmployeeOutcomeTemplate;
 use App\Models\EmployeePayroll;
 use App\Models\Employer;
 use App\Models\Payroll;
@@ -51,18 +55,45 @@ class EmployerSeeder extends Seeder
                     $ep->worked_days = $startPeriod->diffInDays($endPeriod) + 1;
                     $ep->daily_salary = $employee->daily_salary;
                     $ep->integrated_salary = $employee->integrated_salary;
-                    $ep->total_before_other_income = $ep->worked_days * $ep->daily_salary;
-                    $ep->other_income = 0;
-                    $ep->total_income = $ep->total_before_other_income + $ep->other_income;
+                    $ep->total_salary = $ep->worked_days * $ep->daily_salary;
 
-                    $ep->ispt = 0;
-                    $ep->ss = 0;
-                    $ep->other_outcome = 0;
-                    $ep->total_outcome = $ep->ispt + $ep->ss + $ep->other_outcome;
+                    $ep->save();
 
+                    $incomeTemplates = EmployeeIncomeTemplate::all();
+                    $totalIncomes = 0;
+                    foreach ($incomeTemplates as $template) {
+                        $income = new EmployeeIncomes;
+                        $income->employee_payroll_id = $ep->id;
+                        $income->employee_id = $employee->id;
+                        $income->name = $template->name;
+                        $income->amount = $ep->daily_salary * 2; // TODO correct amount or calc
+                        $income->to_transfer = $template->to_transfer;
+                        $totalIncomes += $income->amount;
+
+                        $income->save();
+                    }
+
+                    $outcomeTemplates = EmployeeOutcomeTemplate::all();
+                    $totalOutcomes = 0;
+                    foreach ($outcomeTemplates as $template) {
+                        $outcome = new EmployeeOutcomes;
+                        $outcome->employee_payroll_id = $ep->id;
+                        $outcome->employee_id = $employee->id;
+                        $outcome->name = $template->name;
+                        $outcome->amount = $ep->daily_salary / 2; // TODO correct amount or calc
+
+                        $totalOutcomes =+ $outcome->amount;
+
+                        $outcome->save();
+                    }
+
+                    $ep->total_income = $totalIncomes + $ep->total_salary;
+                    $ep->total_outcome = $totalOutcomes;
+
+                    $total_to_transfer = $ep->incomes->where('to_transfer', true)->sum('amount');
                     $ep->amount_to_pay = $ep->total_income - $ep->total_outcome;
-                    $ep->amount_to_transfer = $ep->total_income - $ep->total_outcome - $ep->other_income;
-                    $ep->amount_to_other_income= $ep->other_income;
+                    $ep->amount_to_transfer = $ep->amount_to_pay - $total_to_transfer;
+                    $ep->amount_to_other_income = $total_to_transfer;
 
                     $ep->save();
                 }

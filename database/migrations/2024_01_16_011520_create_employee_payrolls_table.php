@@ -20,18 +20,14 @@ return new class extends Migration
             $table->integer('worked_days');
             $table->float('daily_salary');
             $table->float('integrated_salary');
-            $table->float('total_before_other_income');
-            $table->float('other_income');
-            $table->float('total_income');
+            $table->float('total_salary');
 
-            $table->float('ispt');
-            $table->float('ss');
-            $table->float('other_outcome');
-            $table->float('total_outcome');
+            $table->float('total_income')->nullable();
+            $table->float('total_outcome')->nullable();
 
-            $table->float('amount_to_pay');
-            $table->float('amount_to_transfer');
-            $table->float('amount_to_other_income');
+            $table->float('amount_to_pay')->nullable();
+            $table->float('amount_to_transfer')->nullable();
+            $table->float('amount_to_other_income')->nullable();
 
             $table->timestamps();
         });

@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payroll;
-use App\Http\Requests\StorePayrollRequest;
-use App\Http\Requests\UpdatePayrollRequest;
+use App\Models\EmployeeOutcomeTemplate;
+use App\Http\Requests\StoreEmployeeOutcomeTemplateRequest;
+use App\Http\Requests\UpdateEmployeeOutcomeTemplateRequest;
 
-class PayrollController extends Controller
+class EmployeeOutcomeTemplateController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $payrolls = Payroll::all();
-
-        return view('payroll.index', compact('payrolls'));
+        //
     }
 
     /**
@@ -29,7 +27,7 @@ class PayrollController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePayrollRequest $request)
+    public function store(StoreEmployeeOutcomeTemplateRequest $request)
     {
         //
     }
@@ -37,7 +35,7 @@ class PayrollController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Payroll $payroll)
+    public function show(EmployeeOutcomeTemplate $employeeOutcomeTemplate)
     {
         //
     }
@@ -45,7 +43,7 @@ class PayrollController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Payroll $payroll)
+    public function edit(EmployeeOutcomeTemplate $employeeOutcomeTemplate)
     {
         //
     }
@@ -53,7 +51,7 @@ class PayrollController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePayrollRequest $request, Payroll $payroll)
+    public function update(UpdateEmployeeOutcomeTemplateRequest $request, EmployeeOutcomeTemplate $employeeOutcomeTemplate)
     {
         //
     }
@@ -61,7 +59,7 @@ class PayrollController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Payroll $payroll)
+    public function destroy(EmployeeOutcomeTemplate $employeeOutcomeTemplate)
     {
         //
     }
